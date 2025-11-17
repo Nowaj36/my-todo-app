@@ -13,7 +13,7 @@ type FormValues = {
   birthday?: string;
 };
 
-export default function AccountForm() {
+const AccountForm = () => {
   const { register, handleSubmit } = useForm<FormValues>();
 
   const onSubmit = (data: FormValues) => {
@@ -23,10 +23,11 @@ export default function AccountForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="bg-white w-[947px] rounded-2xl px-8 mt-4 space-y-2 mx-auto"
+      className="bg-white max-w-[947px] rounded-2xl px-8 mt-4 space-y-2 mx-auto pb-6"
     >
-      <h2 className="text-2xl text-[#0D224A] font-semibold py-6">
+      <h2 className="text-2xl text-[#0D224A] font-semibold py-6 inline-block">
         Account Information
+        <span className="block border-b-3 border-[#5272FF] w-3/4 mt-1"></span>
       </h2>
 
       {/* Avatar */}
@@ -58,7 +59,7 @@ export default function AccountForm() {
         </div>
 
         {/* Buttons */}
-        <div className="flex gap-3 py-4 justify-center">
+        <div className="flex gap-3 py-1 justify-center">
           <button
             type="submit"
             className="bg-[#5272FF] text-white w-[200px] py-1.5 rounded-lg cursor-pointer"
@@ -76,4 +77,6 @@ export default function AccountForm() {
       </div>
     </form>
   );
-}
+};
+
+export default AccountForm;

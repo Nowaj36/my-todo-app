@@ -8,13 +8,13 @@ interface FormInputProps {
   error?: FieldError;
 }
 
-export default function FormInput({
+const FormInput = ({
   label,
   name,
   type = "text",
   register,
   error,
-}: FormInputProps) {
+}: FormInputProps) => {
   return (
     <div className="flex flex-col space-y-1">
       <span className="text-sm font-medium text-[#0C0C0C]">{label}</span>
@@ -26,4 +26,6 @@ export default function FormInput({
       {error && <p className="text-red-500 text-xs">{error.message}</p>}
     </div>
   );
-}
+};
+
+export default FormInput;

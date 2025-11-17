@@ -16,6 +16,7 @@ const AvatarUpload = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) handleUpload(file);
+    console.log(file, "upload file");
   };
 
   return (
@@ -38,7 +39,7 @@ const AvatarUpload = () => {
         {/* Camera Button OUTSIDE the clipped area */}
         <button
           onClick={() => fileRef.current?.click()}
-          className="absolute bottom-0 right-1  bg-[#5272FF] text-white p-2 rounded-full shadow-md flex items-center justify-center hover:bg-[#3d63d6] transition"
+          className="absolute bottom-0 right-1  bg-[#5272FF] text-white p-2 rounded-full shadow-md flex items-center justify-center hover:bg-[#3d63d6] transition cursor-pointer"
         >
           <Camera size={16} />
         </button>
@@ -55,7 +56,7 @@ const AvatarUpload = () => {
       {/* Upload Button */}
       <button
         onClick={() => fileRef.current?.click()}
-        className="flex items-center gap-2 bg-[#5272FF] text-white px-4 py-2 rounded-lg text-base transition shadow-sm"
+        className="flex items-center gap-2 bg-[#5272FF] text-white px-4 py-1.5 rounded-lg text-base transition cursor-pointer"
       >
         <Upload size={18} />
         Upload New Photo

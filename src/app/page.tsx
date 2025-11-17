@@ -1,11 +1,11 @@
-import SignUpPage from './(auth)/signup/page'
+import LoginPage from "./(auth)/login/page";
 
 function page() {
   return (
     <div>
-      <SignUpPage />
+      <LoginPage />
     </div>
-  )
+  );
 }
 
-export default page
+export default page;

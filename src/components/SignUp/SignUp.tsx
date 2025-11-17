@@ -1,11 +1,15 @@
 "use client";
 import FormInput from "@/components/SignUp/FormInput";
-import { SignupFormData, signupSchema } from "@/schemas/signupSchema";
+import { signUp } from "@/lib/utils/api";
+import { SignupFormData, signupSchema } from "@/lib/validators/signupSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -14,8 +18,27 @@ const SignUp = () => {
     resolver: zodResolver(signupSchema),
   });
 
-  const onSubmit = (data: SignupFormData) => {
-    console.log("Form Submitted:", data);
+  const onSubmit = async (data: SignupFormData) => {
+    try {
+      const response = await signUp({
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        password: data.password,
+      });
+
+      toast.success("Account created successfully!");
+
+      router.push("/login");
+    } catch (err: any) {
+      console.error("Signup error:", err.message);
+
+      toast.error(
+        err?.message
+          ? `Signup failed: ${err.message}`
+          : "Failed to sign up. Please try again."
+      );
+    }
   };
 
   return (
@@ -91,7 +114,10 @@ const SignUp = () => {
 
         <p className="text-base items-center text-[#4B5563] mt-4">
           Already have an account?{" "}
-          <a href="/login" className="text-blue-600 hover:underline cursor-pointer">
+          <a
+            href="/login"
+            className="text-blue-600 hover:underline cursor-pointer"
+          >
             Log in
           </a>
         </p>
