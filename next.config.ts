@@ -2,9 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true, // optional but recommended
-  experimental: {
-    appDir: true, // if using /app directory
-  } as any,
   async rewrites() {
     return [
       {
@@ -13,6 +10,19 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "pioneer-alpha-website-django-s3-bucket-new-2.s3.amazonaws.com"
+      },
+      {
+        protocol: "https",
+        hostname: "*.s3.amazonaws.com",
+      },
+    ]
+  }
 };
 
 export default nextConfig;

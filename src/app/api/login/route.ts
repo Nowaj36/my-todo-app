@@ -9,12 +9,15 @@ export async function POST(req: Request) {
     formData.append("email", email);
     formData.append("password", password);
 
-    const res = await fetch("https://todo-app.pioneeralpha.com/api/auth/login/", {
+    const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+
+    const res = await fetch(`${BASE_URL}/api/auth/login/`, {
       method: "POST",
       body: formData,
     });
 
     const data = await res.json();
+    console.log("token data", data);
 
     if (!res.ok) {
       return NextResponse.json({ error: data }, { status: 401 });

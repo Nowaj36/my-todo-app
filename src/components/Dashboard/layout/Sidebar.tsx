@@ -2,6 +2,7 @@
 
 import { useProfile } from "@/lib/utils/hooks/userProfile"; // path to your hook
 import { CheckSquare, Home, LogOut, User } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -31,11 +32,20 @@ const Sidebar = () => {
       <div>
         {/* Profile */}
         <div className="flex flex-col items-center py-8 gap-2 ">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6evvTrA8z8FLI1VzN2_n_wP0tjl8PUoLGEQ&usqp=CAU"
+          <Image
+            src={
+              loading
+                ? "/loading-avatar.gif"
+                : profile?.profile_image
+                ? profile.profile_image
+                : "/default-avatar.png"
+            }
+            width={64}
+            height={64}
             className="w-16 h-16 rounded-full object-cover border-2 border-white"
             alt="profile"
           />
+
           <h4 className="font-semibold text-sm">
             {loading
               ? "Loading..."

@@ -1,5 +1,5 @@
 // src/lib/api.ts
-export const API_BASE = "https://todo-app.pioneeralpha.com/api/";
+export const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 // Signup
 export interface SignUpData {
@@ -16,7 +16,7 @@ export async function signUp(data: SignUpData) {
   formData.append("email", data.email);
   formData.append("password", data.password);
 
-  const res = await fetch(`${API_BASE}users/signup/`, {
+  const res = await fetch(`${API_BASE}/api/users/signup/`, {
     method: "POST",
     body: formData,
   });
@@ -29,32 +29,17 @@ export async function signUp(data: SignUpData) {
   return res.json();
 }
 
-// Create Todo
-
-export interface CreateTodoPayload {
-  title: string;
-  description: string;
-  priority: "extreme" | "moderate" | "low";
-  todo_date: string;
-}
-
-export async function createTodo(data: CreateTodoPayload) {
-  const formData = new FormData();
-  formData.append("title", data.title);
-  formData.append("description", data.description);
-  formData.append("priority", data.priority);
-  formData.append("todo_date", data.todo_date);
-
-  const res = await fetch("/api/todos", {
-    method: "POST",
+// Update Profile
+export async function updateProfile(formData: FormData) {
+  const res = await fetch("/api/profile/update", {
+    method: "PATCH",
     body: formData,
   });
 
-  const response = await res.json();
-
   if (!res.ok) {
-    throw new Error(response.error || "Failed to create todo");
+    const error = await res.json();
+    throw new Error(error.error || "Failed to update profile");
   }
 
-  return response;
+  return res.json();
 }

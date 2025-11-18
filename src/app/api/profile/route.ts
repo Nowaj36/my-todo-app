@@ -1,6 +1,7 @@
-import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
+// Get Profile
 export async function GET() {
   try {
     const token = (await cookies()).get("access_token")?.value;
@@ -9,7 +10,9 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const res = await fetch("https://todo-app.pioneeralpha.com/api/users/me/", {
+    const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+
+    const res = await fetch(`${BASE_URL}/api/users/me/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

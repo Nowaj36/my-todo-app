@@ -1,11 +1,19 @@
 "use client";
 
-import { createTodo } from "@/lib/utils/api";
+import { createTodo } from "@/lib/utils/api/todos";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
-const AddTaskModal = ({ onClose }: { onClose: () => void }) => {
+const AddTaskModal = ({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) => {
+  if (!open) return null;
+
   const [task, setTask] = useState({
     title: "",
     date: "",
@@ -86,25 +94,35 @@ const AddTaskModal = ({ onClose }: { onClose: () => void }) => {
 
         {/* Priority */}
         <label className="text-sm font-semibold text-[#0C0C0C]">Priority</label>
-
         <div className="flex items-center gap-10 mt-2 mb-6 text-sm">
-          <label className="flex text-[#4B5563] items-center gap-2 cursor-pointer">
-            <span className="w-3 h-3 rounded-full bg-red-500"></span>
-            Extreme
-            <input type="checkbox" className="ml-1 w-4 h-4 accent-[#5272FF]" />
-          </label>
-
-          <label className="flex text-[#4B5563] items-center gap-2 cursor-pointer">
-            <span className="w-3 h-3 rounded-full bg-green-500"></span>
-            Moderate
-            <input type="checkbox" className="ml-1 w-4 h-4 accent-[#5272FF]" />
-          </label>
-
-          <label className="flex text-[#4B5563] items-center gap-2 cursor-pointer">
-            <span className="w-3 h-3 rounded-full bg-yellow-500"></span>
-            Low
-            <input type="checkbox" className="ml-1 w-4 h-4 accent-[#5272FF]" />
-          </label>
+          {["extreme", "moderate", "low"].map((level) => (
+            <label
+              key={level}
+              className="flex text-[#4B5563] items-center gap-2 cursor-pointer capitalize"
+            >
+              <span
+                className={`w-3 h-3 rounded-full ${
+                  level === "extreme"
+                    ? "bg-red-500"
+                    : level === "moderate"
+                    ? "bg-green-500"
+                    : "bg-yellow-500"
+                }`}
+              ></span>
+              {level}
+              <input
+                type="checkbox"
+                checked={task.priority === level}
+                onChange={() =>
+                  setTask({
+                    ...task,
+                    priority: level as "extreme" | "moderate" | "low",
+                  })
+                }
+                className="ml-1 w-4 h-4 accent-[#5272FF]"
+              />
+            </label>
+          ))}
         </div>
 
         {/* Description */}
