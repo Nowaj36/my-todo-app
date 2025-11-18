@@ -17,7 +17,7 @@ export function middleware(req: NextRequest) {
 
   // If user IS logged in and tries to visit Login or Register page -> go to dashboard
   if (token && (pathname === "/login" || pathname === "/")) {
-    return NextResponse.redirect(new URL("/dashboard", req.url));
+    return NextResponse.redirect(new URL("/dashboard/todos", req.url));
   }
 
   return NextResponse.next();
