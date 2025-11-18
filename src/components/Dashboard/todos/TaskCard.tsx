@@ -1,9 +1,8 @@
 "use client";
 
-import { deleteTodo, updateTodo } from "@/lib/utils/api/todos";
+// import { deleteTodo, updateTodo } from "@/lib/utils/api/todos";
 import { Edit3, Trash2 } from "lucide-react";
 import { useState } from "react";
-import { toast } from "react-hot-toast";
 
 const priorityBorderColors: Record<string, string> = {
   low: "border-[#FEF9C3]",
@@ -36,34 +35,34 @@ const TaskCard = ({ task, onTaskUpdated, onTaskDeleted }: TaskCardProps) => {
   const [updating, setUpdating] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
-  const handleToggleComplete = async () => {
-    if (!task.id) return;
-    try {
-      setUpdating(true);
-      await updateTodo(task.id, { is_completed: !task.is_completed });
-      toast.success("Task updated!");
-      onTaskUpdated?.();
-    } catch (err: any) {
-      toast.error(err.message || "Failed to update task");
-    } finally {
-      setUpdating(false);
-    }
-  };
+  // const handleToggleComplete = async () => {
+  //   if (!task.id) return;
+  //   try {
+  //     setUpdating(true);
+  //     await updateTodo(task.id, { is_completed: !task.is_completed });
+  //     toast.success("Task updated!");
+  //     onTaskUpdated?.();
+  //   } catch (err: any) {
+  //     toast.error(err.message || "Failed to update task");
+  //   } finally {
+  //     setUpdating(false);
+  //   }
+  // };
 
-  const handleDelete = async () => {
-    if (!task.id) return;
-    if (!confirm("Are you sure you want to delete this task?")) return;
-    try {
-      setDeleting(true);
-      await deleteTodo(task.id);
-      toast.success("Task deleted!");
-      onTaskDeleted?.();
-    } catch (err: any) {
-      toast.error(err.message || "Failed to delete task");
-    } finally {
-      setDeleting(false);
-    }
-  };
+  // const handleDelete = async () => {
+  //   if (!task.id) return;
+  //   if (!confirm("Are you sure you want to delete this task?")) return;
+  //   try {
+  //     setDeleting(true);
+  //     await deleteTodo(task.id);
+  //     toast.success("Task deleted!");
+  //     onTaskDeleted?.();
+  //   } catch (err: any) {
+  //     toast.error(err.message || "Failed to delete task");
+  //   } finally {
+  //     setDeleting(false);
+  //   }
+  // };
 
   // Full border color based on priority
   const cardBorderColor =
@@ -113,7 +112,7 @@ const TaskCard = ({ task, onTaskUpdated, onTaskDeleted }: TaskCardProps) => {
         <div className="flex gap-3">
           <button
             className="p-2 rounded-lg border border-gray-200 hover:bg-gray-50 transition"
-            onClick={handleToggleComplete}
+            // onClick={handleToggleComplete}
             disabled={updating}
           >
             <Edit3 size={18} className="text-blue-600" />
@@ -121,7 +120,7 @@ const TaskCard = ({ task, onTaskUpdated, onTaskDeleted }: TaskCardProps) => {
 
           <button
             className="p-2 rounded-lg border border-gray-200 hover:bg-gray-50 transition"
-            onClick={handleDelete}
+            // onClick={handleDelete}
             disabled={deleting}
           >
             <Trash2 size={18} className="text-red-500" />

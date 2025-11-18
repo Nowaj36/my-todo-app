@@ -54,36 +54,3 @@ export const getTodos = async ({ search = "" }) => {
     return [];
   }
 };
-
-// Update todo
-export async function updateTodo(id: string, data: Record<string, any>) {
-  const formData = new FormData();
-  Object.entries(data).forEach(([key, value]) => {
-    if (value !== undefined) formData.append(key, String(value));
-  });
-
-  const res = await fetch(`/api/todos/${id}`, {
-    method: "PATCH",
-    body: formData,
-    credentials: "include",
-  });
-
-  const result = await res.json();
-  if (!res.ok) throw new Error(result.error || "Failed to update todo");
-
-  return result;
-}
-
-// Delete todo
-export async function deleteTodo(id: string) {
-  const res = await fetch(`/api/todos/${id}`, {
-    method: "DELETE",
-    credentials: "include",
-  });
-
-  const result = await res.json();
-  console.log("delete response", result)
-  if (!res.ok) throw new Error(result.error || "Failed to delete todo");
-
-  return result;
-}
