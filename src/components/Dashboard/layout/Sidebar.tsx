@@ -7,7 +7,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 const sidebarItems = [
-  { label: "Dashboard", href: "/dashboard", icon: <Home size={18} /> },
+  { label: "Dashboard", href: "#", icon: <Home size={18} /> },
   { label: "Todos", href: "/dashboard/todos", icon: <CheckSquare size={18} /> },
   {
     label: "Account Information",
@@ -28,7 +28,7 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="w-[340px] bg-[#0D224A] text-white h-screen flex flex-col justify-between">
+    <aside className="min-w-[340px] min-h-screen bg-[#0D224A] text-white flex flex-col justify-between">
       <div>
         {/* Profile */}
         <div className="flex flex-col items-center py-8 gap-2 ">

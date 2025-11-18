@@ -17,13 +17,13 @@ const Header = () => {
   });
 
   return (
-    <header className="bg-white w-[1100px] h-22 shadow-sm flex items-center justify-between px-6">
+    <header className="bg-white max-w-[1100px] h-22 shadow-sm flex items-center justify-between px-6">
       {/* Left - Logo */}
       <div className="flex items-center ml-12 gap-2 cursor-pointer">
         <Image
           src="/dashboard/logo.png"
-          width={35}
-          height={35}
+          width={34}
+          height={34}
           alt="Dreamy Software"
         />
         <p className="font-bold text-base text-[#0E2257] leading-5">

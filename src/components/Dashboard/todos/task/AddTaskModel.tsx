@@ -49,7 +49,7 @@ const AddTaskModal = ({
 
   return (
     <div className="absolute inset-0 flex justify-center items-center bg-black/70 z-50">
-      <div className="w-[591px] bg-white rounded-2xl border border-gray-300 p-8 shadow-lg relative">
+      <div className="max-w-[591px] bg-white rounded-2xl border border-gray-300 p-8 shadow-lg relative">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-base font-semibold text-black relative pb-1">
