@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const getToken = async () => {
   const token = (await cookies()).get("access_token")?.value;
@@ -8,8 +8,12 @@ const getToken = async () => {
 };
 
 // DELETE
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-  const id = params.id;
+export async function DELETE(
+  req: NextRequest,
+  ctx: { params: Promise<{ id: string }> }
+) {
+  const { id } = await ctx.params;
+
   const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
   const token = (await cookies()).get("access_token")?.value;
 
@@ -23,11 +27,14 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
 }
 
 // PATCH (update)
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(
+  req: NextRequest,
+  ctx: { params: Promise<{ id: string }> }
+) {
   try {
+    const { id } = await ctx.params;
     const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
     const token = await getToken();
-    const { id } = params;
 
     const form = await req.formData();
 
@@ -41,6 +48,9 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
     return NextResponse.json(data, { status: res.status });
   } catch (err: any) {
     console.error("PATCH /todos/:id error:", err);
-    return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: err.message || "Server error" },
+      { status: 500 }
+    );
   }
 }
