@@ -42,9 +42,9 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex bg-white max-w-[1440px] h-[840px] mx-auto">
+    <div className="flex bg-white max-w-[1440px]  mx-auto">
       {/* Left Section */}
-      <div className="hidden md:flex items-center justify-center bg-[#E2ECF8] h-full w-[606px]">
+      <div className="hidden md:flex items-center justify-center bg-[#E2ECF8] max-w-[606px] min-h-screen">
         <Image
           src="/auth/signup-illustration.png"
           alt="Signup Illustration"

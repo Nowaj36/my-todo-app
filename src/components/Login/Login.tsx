@@ -42,9 +42,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex bg-white max-w-[1440px] h-[840px] mx-auto">
+    <div className="flex bg-white max-w-[1440px] min-h-screen mx-auto">
       {/* Left Section */}
-      <div className="hidden md:flex items-center justify-center bg-[#E2ECF8] h-full w-[606px] shrink-0">
+      <div className="hidden md:flex items-center justify-center bg-[#E2ECF8] max-w-[606px]">
         <Image
           src="/auth/login-illustration.png"
           alt="Login Illustration"

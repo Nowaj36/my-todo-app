@@ -1,32 +1,29 @@
 // middleware.ts
-import type { NextRequest } from "next/server";
+
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 export function middleware(req: NextRequest) {
-  const token = req.cookies.get("access_token")?.value; // HttpOnly cookie
-  const url = req.nextUrl.clone();
+  const token = req.cookies.get("access_token")?.value;
+  const { pathname } = req.nextUrl;
 
-  // Protect dashboard routes
-  if (req.nextUrl.pathname.startsWith("/dashboard")) {
-    if (!token) {
-      // If not logged in, redirect to login
-      url.pathname = "/login";
-      return NextResponse.redirect(url);
-    }
+  // protected routes (only logged-in users can access)
+  const protectedRoutes = ["/dashboard", "/todos"];
+
+  // If user NOT logged in and trying to access protected routes
+  if (!token && protectedRoutes.some((route) => pathname.startsWith(route))) {
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  // Prevent logged-in user from accessing login/signup
-  if (req.nextUrl.pathname === "/login" || req.nextUrl.pathname === "/signup") {
-    if (token) {
-      url.pathname = "/dashboard";
-      return NextResponse.redirect(url);
-    }
+  // If user IS logged in and tries to visit Login or Register page -> go to dashboard
+  if (token && (pathname === "/login" || pathname === "/")) {
+    return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
   return NextResponse.next();
 }
 
-// Only match the protected paths
+// Apply middleware only to certain routes (optional but recommended)
 export const config = {
-  matcher: ["/dashboard/:path*", "/login", "/signup"], // static strings only
+  matcher: ["/", "/login", "/dashboard", "/todos/:path*"],
 };
