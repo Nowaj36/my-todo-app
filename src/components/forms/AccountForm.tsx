@@ -77,7 +77,7 @@ const AccountForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="bg-white max-w-[947px] max-h-screen rounded-2xl px-8 mt-4 space-y-2 mx-auto pb-6"
+      className="bg-white max-w-[947px] rounded-2xl px-8 mt-4 space-y-2 mx-auto pb-6"
     >
       <h2 className="text-2xl text-[#0D224A] font-semibold py-6 inline-block">
         Account Information
